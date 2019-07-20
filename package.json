@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
-    "devv": "node server.js",
+    "dev": "node server.js",
     "build": "./node_modules/next/dist/bin/next build",
     "lint": "eslint . --ext .js --ext .jsx --fix"
   },
@@ -18,7 +17,9 @@
     "next": "^8.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-select": "^3.0.4",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel": "^6.23.0",
