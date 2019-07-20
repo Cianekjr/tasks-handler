@@ -8,7 +8,7 @@ const Normallize = css`
   }
   body {
     font-size: 10px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Roboto, sans-serif;
     overflow: hidden;
   }
 `;
