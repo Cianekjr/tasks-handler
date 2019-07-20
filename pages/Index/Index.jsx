@@ -1,18 +1,15 @@
 import React from 'react';
-import { Global } from '@emotion/core';
-import Normallize from '../../src/Utils/Normallize.shards';
-import Header from '../../src/components/Header/HeaderView';
-import Main from '../../src/components/Main/MainView';
-import Footer from '../../src/components/Footer/FooterView';
-import Body from './Index.shards';
+import Head from 'next/head';
+import App from '../../src/components/App/AppView';
 
 export default function Index() {
   return (
-    <Body>
-      <Global styles={Normallize} />
-      <Header />
-      <Main />
-      <Footer />
-    </Body>
+    <>
+      <Head>
+        <title>Tasks Manager</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=latin-ext" rel="stylesheet" />
+      </Head>
+      <App />
+    </>
   );
 }
