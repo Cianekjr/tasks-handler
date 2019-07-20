@@ -12,6 +12,14 @@ const tasksReducer = (state, action) => {
       nextState[taskIndex] = action.taskState;
       return nextState;
     }
+    case 'DRAG_TASK': {
+      const nextState = [...state];
+      const taskIndex = nextState.findIndex(task => String(task.id) === action.dragTaskId);
+      if (String(taskIndex)) {
+        nextState[taskIndex].section = action.dragContainer;
+      }
+      return nextState;
+    }
     default:
       return state;
   }

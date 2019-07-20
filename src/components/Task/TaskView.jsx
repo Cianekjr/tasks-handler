@@ -49,7 +49,12 @@ export default function TaskView({ task }) {
 
   return (
     <>
-      <TaskWrapper onClick={() => setShow(true)}>
+      <TaskWrapper
+        draggable="true"
+        id={id}
+        className="draggable"
+        onClick={() => setShow(true)}
+      >
         <Title>{title}</Title>
         <TaskPart>
           <TagsWrapper>

@@ -15,7 +15,7 @@ export default function CardView({ title, name, create }) {
   const [titleValue, setTitleValue] = useState('');
   const [newTaskForm, setNewTaskForm] = useState(false);
   return (
-    <Card>
+    <Card className="container" name={name}>
       <CardTitle>
         <Title>{title}</Title>
         {create && (

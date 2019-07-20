@@ -12,6 +12,9 @@ export const TaskWrapper = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  &.drag-active {
+    filter: blur(2px);
+  }
 `;
 
 export const Title = styled.div`
