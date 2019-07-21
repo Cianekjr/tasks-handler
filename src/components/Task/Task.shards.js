@@ -42,12 +42,15 @@ export const TagsWrapper = styled.div`
   display: flex;
 `;
 
-export const SettingsIcon = styled.div`
-  width: 20px;
+export const SettingsButton = styled.button`
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;
 
-export const Icon = styled.img`
-  
+export const SettingsImage = styled.img`
+  height: 100%;
 `;
 
 export const TaskModal = styled.div`
@@ -74,12 +77,18 @@ export const ModalDialog = styled.div`
   flex-direction: column;
 `;
 
-export const CloseBtn = styled.img`
+export const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+`;
+
+export const CloseImage = styled.img`
+  height: 100%;
 `;
 
 export const ModalHeader = styled.div`

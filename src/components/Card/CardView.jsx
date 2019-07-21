@@ -3,8 +3,16 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import {
-  Card, CardTitle, Title, AddNewTaskButton, NewTaskWrapper, CreateInput, TasksWrapper,
-  Button, Control
+  Card,
+  CardTitle,
+  Title,
+  AddNewTaskButton,
+  NewTaskImage,
+  NewTaskWrapper,
+  CreateInput,
+  TasksWrapper,
+  Button,
+  Control
 } from './Card.shards';
 import Task from '../Task/TaskView';
 
@@ -21,8 +29,9 @@ export default function CardView({ title, name, create }) {
         {create && (
         <AddNewTaskButton
           onClick={() => setNewTaskForm(!newTaskForm)}
-          src="/static/svg/upload.svg"
-        />
+        >
+          <NewTaskImage src="/static/svg/upload.svg" />
+        </AddNewTaskButton>
         )}
       </CardTitle>
       <TasksWrapper>

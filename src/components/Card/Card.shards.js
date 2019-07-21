@@ -29,8 +29,13 @@ export const Title = styled.span`
   
 `;
 
-export const AddNewTaskButton = styled.img`
+export const AddNewTaskButton = styled.button`
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+`;
+
+export const NewTaskImage = styled.img`
   height: 25px;
 `;
 

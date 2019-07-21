@@ -9,11 +9,12 @@ import {
   Title,
   TaskPart,
   TagsWrapper,
-  SettingsIcon,
-  Icon,
+  SettingsButton,
+  SettingsImage,
   TaskModal,
   ModalDialog,
-  CloseBtn,
+  CloseButton,
+  CloseImage,
   ModalHeader,
   ModalFooter,
   TagsControl,
@@ -60,18 +61,20 @@ export default function TaskView({ task }) {
           <TagsWrapper>
             {tags.map(tag => <Tag key={uuid()}>{tag}</Tag>)}
           </TagsWrapper>
-          <SettingsIcon>
-            <Icon src="/static/svg/settings.svg" />
-          </SettingsIcon>
+          <SettingsButton>
+            <SettingsImage src="/static/svg/settings.svg" />
+          </SettingsButton>
         </TaskPart>
       </TaskWrapper>
       {show && (
       <TaskModal onClick={() => updateTaskOnModalClose()}>
         <ModalDialog onClick={e => e.stopPropagation()}>
-          <CloseBtn
-            src="/static/svg/cancel.svg"
+          <CloseButton
+            autoFocus
             onClick={() => updateTaskOnModalClose()}
-          />
+          >
+            <CloseImage src="/static/svg/cancel.svg" />
+          </CloseButton>
           <ModalHeader>
             <TitleInput
               type="text"
@@ -120,13 +123,11 @@ TaskView.propTypes = {
     PropTypes.arrayOf(PropTypes.string)])).isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
-  tagsId: PropTypes.arrayOf(PropTypes.number),
-  minutes: PropTypes.number,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 TaskView.defaultProps = {
   title: '',
   description: '',
-  tagsId: [],
-  minutes: 0,
+  tags: [],
 };
