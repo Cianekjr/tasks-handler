@@ -11,7 +11,11 @@ export const TaskWrapper = styled.div`
   border-radius: ${theme.commons.borderRadius.card}px;
   display: flex;
   flex-direction: column;
+  transition: border-color .5s;
   cursor: pointer;
+  &:hover {
+    border-color: #222;
+  }
   &.drag-active {
     filter: blur(2px);
   }
@@ -31,11 +35,6 @@ export const TaskPart = styled.div`
   align-items: center;
   border-top: ${theme.commons.borders.primary};
   padding-top: 10px;
-`;
-
-export const Tag = styled.span`
-  margin-right: 5px;
-  text-transform: uppercase;
 `;
 
 export const TagsWrapper = styled.div`
@@ -66,7 +65,6 @@ export const ModalDialog = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 300px;
   width: 80%;
   max-width: 700px;
   transform: translate(-50%, -50%);
@@ -82,6 +80,8 @@ export const CloseButton = styled.button`
   top: 10px;
   right: 10px;
   height: 25px;
+  padding: 5px;
+  box-sizing: content-box;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -92,6 +92,7 @@ export const CloseImage = styled.img`
 `;
 
 export const ModalHeader = styled.div`
+  margin-bottom: 10px;
 `;
 
 export const TitleInput = styled(InputStyles)`
@@ -112,13 +113,17 @@ export const ModalFooter = styled.div`
 `;
 
 export const TagsControl = styled.div`
-
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 40px; 
 `;
 
 export const Settings = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 export const Button = styled(ButtonStyles)`
+  margin-top: 10px;
   background-color: #FF473D;
 `;

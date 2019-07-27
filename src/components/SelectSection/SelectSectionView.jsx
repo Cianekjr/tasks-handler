@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from './SelectSection.shards';
 
 const options = [
@@ -23,3 +24,9 @@ export default function SelectSectionView({
     />
   );
 }
+
+SelectSectionView.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  currentSection: PropTypes.string.isRequired,
+};

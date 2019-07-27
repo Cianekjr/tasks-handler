@@ -21,23 +21,34 @@ import {
   Settings,
   TitleInput,
   DescriptionInput,
-  Tag,
   Button
 } from './Task.shards';
 import SelectSection from '../SelectSection/SelectSectionView';
+import Tag from '../Tag/TagView';
 
-import { TasksContext } from '../App/AppView';
+import { TasksContext, TagsContext } from '../App/AppView';
 
 export default function TaskView({ task }) {
   const {
     id, section, title, description, tags
   } = task;
   const { tasksDispatch } = useContext(TasksContext);
+  const { tagsState } = useContext(TagsContext);
 
   const [show, setShow] = useState(false);
   const [taskState, setTaskState] = useState({
     id, section, title, description, tags
   });
+
+  const handleDeleteTag = (deleteTagId) => {
+    const nextStateTags = [...tags];
+    const tagIndex = nextStateTags.findIndex(tagId => tagId === deleteTagId);
+    nextStateTags.splice(tagIndex, 1);
+    console.log(nextStateTags, 'stan')
+    console.log(taskState.tags, 'przed');
+    setTaskState({ ...taskState, tags: nextStateTags });
+    console.log(taskState.tags, 'po');
+  };
 
   const updateTaskOnModalClose = () => {
     setShow(false);
@@ -59,7 +70,12 @@ export default function TaskView({ task }) {
         <Title>{title}</Title>
         <TaskPart>
           <TagsWrapper>
-            {tags.map(tag => <Tag key={uuid()}>{tag}</Tag>)}
+            {tags.map(tag => (
+              <Tag
+                key={uuid()}
+                tag={tagsState.find(tagState => tagState.id === tag)}
+              />
+            ))}
           </TagsWrapper>
           <SettingsButton>
             <SettingsImage src="/static/svg/settings.svg" />
@@ -67,50 +83,57 @@ export default function TaskView({ task }) {
         </TaskPart>
       </TaskWrapper>
       {show && (
-      <TaskModal onClick={() => updateTaskOnModalClose()}>
-        <ModalDialog onClick={e => e.stopPropagation()}>
-          <CloseButton
-            autoFocus
-            onClick={() => updateTaskOnModalClose()}
-          >
-            <CloseImage src="/static/svg/cancel.svg" />
-          </CloseButton>
-          <ModalHeader>
-            <TitleInput
-              type="text"
-              value={taskState.title}
-              onChange={e => setTaskState({ ...taskState, title: e.target.value })}
-            />
-            <DescriptionInput
-              value={taskState.description}
-              onChange={e => setTaskState({ ...taskState, description: e.target.value })}
-            />
-          </ModalHeader>
-          <ModalFooter>
-            <TagsControl>
-              {tags}
-            </TagsControl>
-            <Settings>
-              <SelectSection
-                value={taskState.value}
-                currentSection={section}
-                onChange={({ value }) => {
-                  setTaskState({ ...taskState, section: value });
-                }}
+        <TaskModal onClick={() => updateTaskOnModalClose()}>
+          <ModalDialog onClick={e => e.stopPropagation()}>
+            <CloseButton
+              autoFocus
+              onClick={() => updateTaskOnModalClose()}
+            >
+              <CloseImage src="/static/svg/cancel.svg" />
+            </CloseButton>
+            <ModalHeader>
+              <TitleInput
+                type="text"
+                value={taskState.title}
+                onChange={e => setTaskState({ ...taskState, title: e.target.value })}
               />
-              <Button
-                type="button"
-                onClick={() => tasksDispatch({
-                  type: 'DELETE_TASK',
-                  id,
-                })}
-              >
-                Delete
-              </Button>
-            </Settings>
-          </ModalFooter>
-        </ModalDialog>
-      </TaskModal>
+              <DescriptionInput
+                value={taskState.description}
+                onChange={e => setTaskState({ ...taskState, description: e.target.value })}
+              />
+            </ModalHeader>
+            <ModalFooter>
+              <TagsControl>
+                {tags.map(tag => (
+                  <Tag
+                    show
+                    handleDeleteTag={handleDeleteTag}
+                    key={uuid()}
+                    tag={tagsState.find(tagState => tagState.id === tag)}
+                  />
+                ))}
+              </TagsControl>
+              <Settings>
+                <SelectSection
+                  value={taskState.value}
+                  currentSection={section}
+                  onChange={({ value }) => {
+                    setTaskState({ ...taskState, section: value });
+                  }}
+                />
+                <Button
+                  type="button"
+                  onClick={() => tasksDispatch({
+                    type: 'DELETE_TASK',
+                    id,
+                  })}
+                >
+                  Delete
+                </Button>
+              </Settings>
+            </ModalFooter>
+          </ModalDialog>
+        </TaskModal>
       )}
     </>
   );
@@ -120,14 +143,5 @@ TaskView.propTypes = {
   task: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.arrayOf(PropTypes.string)])).isRequired,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.string),
-};
-
-TaskView.defaultProps = {
-  title: '',
-  description: '',
-  tags: [],
+    PropTypes.arrayOf(PropTypes.number)])).isRequired,
 };

@@ -10,18 +10,25 @@ import Normallize from '../../Utils/Normallize.shards';
 import tasksInitial from '../../Utils/JSON/DBTasks';
 import tasksReducer from '../../flux/tasksReducer';
 
+import tagsInitial from '../../Utils/JSON/DBTags';
+import tagsReducer from '../../flux/tagsReducer';
+
 export const TasksContext = createContext(null);
+export const TagsContext = createContext(null);
 
 export default function AppView() {
   const [tasksState, tasksDispatch] = useReducer(tasksReducer, tasksInitial);
+  const [tagsState, tagsDispatch] = useReducer(tagsReducer, tagsInitial);
   return (
     <TasksContext.Provider value={{ tasksState, tasksDispatch }}>
-      <Page>
-        <Global styles={Normallize} />
-        <Header />
-        <Main />
-        <Footer />
-      </Page>
+      <TagsContext.Provider value={{ tagsState, tagsDispatch }}>
+        <Page>
+          <Global styles={Normallize} />
+          <Header />
+          <Main />
+          <Footer />
+        </Page>
+      </TagsContext.Provider>
     </TasksContext.Provider>
   );
 }

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Tag,
@@ -8,12 +8,11 @@ import {
   CancelButton,
   Icon
 } from './Tag.shards';
-import { TasksContext } from '../App/App';
 
 export default function TagView({
-  taskId, tagId, name, color, show
+  tag, show, handleDeleteTag
 }) {
-  const { tasksDispatch } = useContext(TasksContext);
+  const { id, name, color } = tag;
   return (
     <Tag show={show}>
       <Circle show={show} color={color} />
@@ -22,7 +21,7 @@ export default function TagView({
           <Name>
             {name}
           </Name>
-          <CancelButton onClick={() => tasksDispatch({ type: 'DELETE_TAG', taskId, tagId })}>
+          <CancelButton onClick={() => handleDeleteTag(id)}>
             <Icon src="/static/svg/cancel.svg" />
           </CancelButton>
         </>
@@ -33,12 +32,16 @@ export default function TagView({
 }
 
 TagView.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  tag: PropTypes.objectOf(
+    PropTypes.oneOfType(
+      [PropTypes.number, PropTypes.string]
+    )
+  ).isRequired,
+  handleDeleteTag: PropTypes.func,
   show: PropTypes.bool,
 };
 
 TagView.defaultProps = {
   show: false,
+  handleDeleteTag: () => null,
 };
